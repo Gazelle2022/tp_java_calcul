@@ -1,36 +1,18 @@
 name: Deploy
 
 on:
-    push:
-        branches:
-            - main
-    pull_request:
-        branches:
-            - main
+  workflow_run:
+    workflows: ["Test"]
+    types: [completed]
 
 jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-    deploy:
-        runs-on: ubuntu-latest
-        if: github.ref == 'refs/heads/main'
-
-        steps:
-            - name: Download artifact
-              uses: actions/download-artifact@v4
-              with:
-                  name: calculator-jar
-                  path: ./artifacts
-
-            - name: Display artifacts
-              run: ls -la ./artifacts
-
-            - name: Deploy application
-              run: |
-                  echo "Deploying application..."
-                  echo "Artifact ready for deployment"
-                  # Add your deployment commands here
-                  # Examples:
-                  # - Deploy to AWS EC2
-                  # - Deploy to Azure App Service
-                  # - Deploy to Docker registry
-                  # - Deploy to Kubernetes
+    steps:
+      - name: Deploy application
+        run: |
+          echo "================================"
+          echo " Déploiement JavaCalculator 🚀"
+          echo " Succès"
+          echo "================================"
