@@ -1,5 +1,5 @@
 FROM eclipse-temurin:17-jre
 WORKDIR /app
-COPY target/*.jar app.jar
-EXPOSE 9090
+COPY target/java-simple-project-1.0.0.jar app.jar
+EXPOSE 8080
 CMD ["java","-jar","app.jar"]
