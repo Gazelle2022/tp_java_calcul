@@ -9,7 +9,7 @@ pipeline {
  stages {
  stage('Checkout') {
  steps {
- git branch: 'main', url: 'https://github.com/USER/REPO.git'
+ git branch: 'main', url: 'https://github.com/Gazelle2022/tp_java_calcul.git'
  }
  }
  stage('Build') {
