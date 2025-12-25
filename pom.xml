@@ -3,12 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.example</groupId>
     <artifactId>java-simple-project</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    
-
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -16,6 +15,7 @@
     </properties>
 
     <dependencies>
+        <!-- JUnit 5 pour tests -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
