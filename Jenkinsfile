@@ -17,12 +17,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat 'mvn -B clean package -DskipTests'
+                bat 'mvnd -B clean package -DskipTests'
             }
         }
         stage('Test') {
             steps {
-                bat 'mvn -B test'
+                bat 'mvnd -B test'
             }
             post {
                 always {
