@@ -23,7 +23,7 @@ pipeline {
                     junit '**/target/surefire-reports/*.xml'
                 }
             }
-        }
+        }// fin test
         stage('Docker Build') {
             steps {
                 bat 'docker build -t tp3-java-app:latest .'
