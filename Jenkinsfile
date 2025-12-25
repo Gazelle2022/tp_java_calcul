@@ -23,7 +23,8 @@ pipeline {
                     junit '**/target/surefire-reports/*.xml'
                 }
             }
-        }// fin test
+        }// fin test mvn 
+        // Nouvelle étape pour construire et déployer l'image Docker
         stage('Docker Build') {
             steps {
                 bat 'docker build -t tp3-java-app:latest .'
