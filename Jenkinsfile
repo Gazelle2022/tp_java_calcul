@@ -1,13 +1,7 @@
 pipeline {
     agent any
-    triggers {
-        githubPush()  // déclenche à chaque push
-    }
-    environment {
-        IMAGE_NAME = "tp3-java-app:latest"
-        CONTAINER_NAME = "tp3-java-container"
-        HOST_PORT = "9091"
-        CONTAINER_PORT = "9090"
+    tools {
+        maven 'mvnd'
     }
     stages {
         stage('Checkout') {
@@ -17,12 +11,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat 'mvnd -B clean package -DskipTests'
+                bat "${tool 'MVND'}\\mvnd.bat clean package -DskipTests"
             }
         }
         stage('Test') {
             steps {
-                bat 'mvnd -B test'
+                bat "${tool 'MVND'}\\mvnd.bat test"
             }
             post {
                 always {
@@ -32,22 +26,22 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
-                bat 'docker build -t %IMAGE_NAME% .'
+                bat 'docker build -t tp3-java-app:latest .'
             }
         }
         stage('Deploy') {
             steps {
                 bat """
-                docker stop %CONTAINER_NAME%
-                docker rm %CONTAINER_NAME%
-                docker run -d --name %CONTAINER_NAME% -p %HOST_PORT%:%CONTAINER_PORT% %IMAGE_NAME%
+                docker stop tp3-java-container
+                docker rm tp3-java-container
+                docker run -d --name tp3-java-container -p 9091:9090 tp3-java-app:latest
                 """
             }
         }
     }
     post {
         success {
-            echo "✅ Déploiement local terminé"
+            echo "✅ Déploiement terminé"
         }
         failure {
             echo "❌ Erreur dans le pipeline"
