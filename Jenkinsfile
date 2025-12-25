@@ -11,12 +11,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat "${tool 'MVND'}\\mvnd.bat clean package -DskipTests"
+                bat "${tool 'mvnd'}\\mvnd.bat clean package -DskipTests"
             }
         }
         stage('Test') {
             steps {
-                bat "${tool 'MVND'}\\mvnd.bat test"
+                bat "${tool 'mvnd'}\\mvnd.bat test"
             }
             post {
                 always {
