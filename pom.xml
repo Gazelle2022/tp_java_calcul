@@ -7,6 +7,8 @@
     <artifactId>java-simple-project</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
+    
+
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -31,7 +33,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Calculatrice</mainClass>
+                            <mainClass>com.example.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
