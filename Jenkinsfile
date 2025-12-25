@@ -10,7 +10,7 @@ pipeline {
         CONTAINER_PORT = "9090"
     }
     stages {
-        // tes stages ici… HHJJGG
+        // tes stages 
     }
     post {
         success { echo "✅ Déploiement local terminé" }
