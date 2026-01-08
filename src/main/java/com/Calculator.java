@@ -27,7 +27,7 @@ public class Calculator {
     public int duplicateMethod2(int x, int y) {
         return x + y;
     }
-
+//lo
     // Complexité inutile
     public int badLogic(int a) {
         if (a > 0) {
