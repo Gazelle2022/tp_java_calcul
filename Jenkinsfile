@@ -71,17 +71,20 @@ pipeline {
                 }
             }
         }
-
-        // --- Étape 7 : TP4 SonarQube Analysis
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') { // le nom correspond à la configuration Jenkins
-                    bat """
-                    "C:\\Users\\Ghizlane\\Downloads\\maven-mvnd-1.0.3-windows-amd64\\bin\\mvnd.cmd" -B sonar:sonar -Dsonar.projectKey=%SONAR_PROJECT_KEY%
-                    """
-                }
-            }
+               echo "🚀 Démarrage analyse SonarQube..."
+                 withSonarQubeEnv('SonarQube') {
+                bat """
+                 echo ==== MVN SONAR START ====
+                "C:\\Users\\Ghizlane\\Downloads\\maven-mvnd-1.0.3-windows-amd64\\bin\\mvnd.cmd" -X sonar:sonar ^
+                 -Dsonar.projectKey=%SONAR_PROJECT_KEY%
+                 echo ==== MVN SONAR END ====
+                 """
+             }
+           }
         }
+
 
         // --- Étape 8 : SonarQube Quality Gate
         stage('Quality Gate') {
