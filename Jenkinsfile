@@ -76,11 +76,9 @@ pipeline {
                
                  withSonarQubeEnv('SonarQube') {
                 bat """
-                 echo ==== MVN SONAR START ====
-                "C:\\Users\\Ghizlane\\Downloads\\maven-mvnd-1.0.3-windows-amd64\\bin\\mvnd.cmd" -X sonar:sonar ^
-                 -Dsonar.projectKey=%SONAR_PROJECT_KEY%
-                 echo ==== MVN SONAR END ====
-                 """
+                  mvnd sonar:sonar\
+                  -Dsonar.projectKey=%SONAR_PROJECT_KEY% 
+                  """
              }
            }
         }
