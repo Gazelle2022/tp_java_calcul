@@ -73,7 +73,7 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-               echo "🚀 Démarrage analyse SonarQube..."
+               
                  withSonarQubeEnv('SonarQube') {
                 bat """
                  echo ==== MVN SONAR START ====
