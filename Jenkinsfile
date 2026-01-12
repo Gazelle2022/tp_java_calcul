@@ -78,7 +78,7 @@ pipeline {
              steps {
                 withSonarQubeEnv('SonarQubeScanner') { // le serveur que tu as configuré
                  withMaven(maven: 'MVN_3.9.12') { // Maven déclaré dans Global Tool Configuration
-                bat 'mvn clean verify sonar:sonar -Dsonar.projectKey=%SONAR_PROJECT_KEY%'
+                bat 'mvnd clean verify sonar:sonar -Dsonar.projectKey=%SONAR_PROJECT_KEY%'
             }
         }
     }
