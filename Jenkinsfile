@@ -65,16 +65,25 @@ pipeline {
             }
         }
 
+        //stage('SonarQube Analysis') {
+             //steps {
+               //  withSonarQubeEnv('SonarQubeScanner') { // le serveur SonarQube configuré
+                // withMaven(maven: 'MVN_3.9.12') { // Maven installé via Global Tool Configuration
+                  // bat 'mvn clean verify sonar:sonar -Dsonar.projectKey=%SONAR_PROJECT_KEY%'
+            //}
+        //}
+    //}
+//}
         stage('SonarQube Analysis') {
-             steps {
-                 withSonarQubeEnv('SonarQubeScanner') { // le serveur SonarQube configuré
-                 withMaven(maven: 'MVN_3.9.12') { // Maven installé via Global Tool Configuration
-                   bat 'mvn clean verify sonar:sonar -Dsonar.projectKey=%SONAR_PROJECT_KEY%'
+            steps {
+                withSonarQubeEnv('SonarQubeScanner') {
+                    bat """
+                        mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar ^
+                        -Dsonar.projectKey=${SONAR_PROJECT_KEY}
+                    """
+                }
             }
         }
-    }
-}
-
 
         stage('Quality Gate') {
             steps {
