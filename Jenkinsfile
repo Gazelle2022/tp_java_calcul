@@ -14,21 +14,18 @@ pipeline {
 
     stages {
 
-        // --- Étape 1 : Checkout
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/Gazelle2022/tp_java_calcul.git'
             }
         }
 
-        // --- Étape 2 : Build Java
         stage('Build') {
             steps {
                 bat '"C:\\Users\\Ghizlane\\Downloads\\maven-mvnd-1.0.3-windows-amd64\\bin\\mvnd.cmd" -B clean package -DskipTests'
             }
         }
 
-        // --- Étape 3 : Tests
         stage('Test') {
             steps {
                 bat '"C:\\Users\\Ghizlane\\Downloads\\maven-mvnd-1.0.3-windows-amd64\\bin\\mvnd.cmd" -B test'
@@ -40,14 +37,12 @@ pipeline {
             }
         }
 
-        // --- Étape 4 : Docker Build
         stage('Docker Build') {
             steps {
                 bat 'docker build -t %IMAGE_NAME% .'
             }
         }
 
-        // --- Étape 5 : Deploy local Docker
         stage('Deploy (Local Docker)') {
             steps {
                 bat """
@@ -58,7 +53,6 @@ pipeline {
             }
         }
 
-        // --- Étape 6 : Test Credential GitHub (exemple pédagogique)
         stage('Test Credential (B3)') {
             steps {
                 withCredentials([
@@ -66,25 +60,19 @@ pipeline {
                 ]) {
                     bat '''
                     echo Token récupéré mais caché dans les logs
-                    echo Longueur du token : %GITHUB_TOKEN:~0,0%
                     '''
                 }
             }
         }
+
         stage('SonarQube Analysis') {
-    steps {
-        withSonarQubeEnv('SonarQube') {
-            bat """
-            mvn clean verify ^
-            org.sonarsource.scanner.maven:sonar-maven-plugin:3.10.0.2594:sonar ^
-            -Dsonar.projectKey=%SONAR_PROJECT_KEY%
-            """
+            steps {
+                withSonarQubeEnv('SonarQubeServer') {
+                    bat '"C:\\Users\\Ghizlane\\Downloads\\maven-mvnd-1.0.3-windows-amd64\\bin\\mvnd.cmd" -B clean verify sonar:sonar -Dsonar.projectKey=%SONAR_PROJECT_KEY%'
+                }
+            }
         }
-    }
-}
 
-
-        // --- Étape 8 : SonarQube Quality Gate
         stage('Quality Gate') {
             steps {
                 timeout(time: 2, unit: 'MINUTES') {
@@ -92,15 +80,15 @@ pipeline {
                 }
             }
         }
-
     }
 
     post {
         success {
-            echo "✅ Pipeline terminé avec succès : Docker et SonarQube OK"
+            echo "✅ Pipeline terminé avec succès : Docker + SonarQube OK"
         }
         failure {
             echo "❌ Pipeline échoué : vérifier les tests ou la Quality Gate"
         }
     }
 }
+cd
