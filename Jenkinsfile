@@ -65,20 +65,12 @@ pipeline {
             }
         }
 
-        //stage('SonarQube Analysis') {
-             //steps {
-               //  withSonarQubeEnv('SonarQubeScanner') { // le serveur SonarQube configuré
-                // withMaven(maven: 'MVN_3.9.12') { // Maven installé via Global Tool Configuration
-                  // bat 'mvn clean verify sonar:sonar -Dsonar.projectKey=%SONAR_PROJECT_KEY%'
-            //}
-        //}
-    //}
-//}
+        
         stage('SonarQube Analysis') {
             steps {
              withSonarQubeEnv('SonarQubeScanner') { // le serveur configuré avec URL et token
                 bat """
-                sonar-scanner ^
+                "C:\\Users\\Ghizlane\\Downloads\\maven-mvnd-1.0.3-windows-amd64\\bin\\mvnd.cmd" sonar:sonar ^
                 -Dsonar.projectKey=%SONAR_PROJECT_KEY% ^
                 -Dsonar.sources=. ^
                 -Dsonar.host.url=%SONAR_HOST_URL% ^
